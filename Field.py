@@ -12,11 +12,13 @@ class Strength(MovingCameraScene):
     def construct(self):
 
         # format [[x(m), y(m)], charge(Kl)]
-        charges = [[[-3, 0], 6], [[3, 0], -6],]# [[3, 3], -3], [[5, -3], 3], [[1, -1], -4]]
-
-        # cast to required format
-        for i in range(len(charges)):
-            charges[i] = [np.array(np.array(charges[i][0] + [1.0])), charges[i][1]]
+        charges = []
+        with open('charges.txt') as f:
+            lines = f.readlines() 
+            for line in lines:
+                if line.startswith("#"): continue 
+                x, y, charge = map(int, line.split())
+                charges.append([np.array([x, y, 1.0]), charge]) 
 
         self.camera.frame.set(width=27)
 
