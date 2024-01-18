@@ -2,9 +2,14 @@ import numpy as np
 import math 
 import matplotlib.pyplot as plt
 
+charges = []
+with open('charges.txt') as f:
+    lines = f.readlines() 
+    for line in lines:
+        if line.startswith("#"): continue 
+        x, y, charge = map(int, line.split())
+        charges.append([np.array([x, y]), charge])
 
-# charges = [[[-3, -3], -6], [[-3, 3], 3], [[3, 3], -3], [[2, -3], 3], [[0, 0], 4]]
-charges = [[[2, 3], 5], [[2, -3], 3]]
 epsilon = 1
 
 
@@ -13,9 +18,6 @@ x_max = 8
 y_min = -8
 y_max = 8
 
-# cast to required format 
-for i in range(len(charges)):
-    charges[i] = [np.array(charges[i][0]), charges[i][1]]
 
 
 def vector_from_points(point1, point2):
